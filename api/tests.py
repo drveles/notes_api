@@ -3,7 +3,9 @@ Tests for client service
 """
 
 import unittest
+from unittest import IsolatedAsyncioTestCase
 from auth import Auth
+from speller import have_errors
 
 
 class TestAuthMethods(unittest.TestCase):
@@ -35,6 +37,25 @@ class TestAuthMethods(unittest.TestCase):
         test_pass = "60303ae22b998861bce3b28f33eec1be758a213c86c93c076dbe9f558c11c752"
         self.assertTrue(Auth.validate_user("test2", test_pass))
         self.assertFalse(Auth.validate_user("test2", "test2"))
+
+
+class TestSpellerFunc(IsolatedAsyncioTestCase):
+    """
+    Async siute for testing
+    """
+
+    async def test_speller(self):
+        """
+        Testing speller func
+        """
+        self.assertFalse(await have_errors("False"))
+        self.assertFalse(await have_errors("True"))
+        self.assertFalse(await have_errors("some text"))
+        self.assertTrue(await have_errors("some text with errror"))
+        self.assertTrue(await have_errors("some text with errrors"))
+
+        self.assertFalse(await have_errors("Немного по-русски"))
+        self.assertTrue(await have_errors("Немного непо-русски"))
 
 
 if __name__ == "__main__":
