@@ -19,7 +19,7 @@ class Auth:
     }
 
     @classmethod
-    def authentication_user(cls, username, password):
+    def authentication_user(cls, username: str, password: str) -> bool:
         """
         Checking user password to co
         """
@@ -29,7 +29,7 @@ class Auth:
         return curr_sha_password == stock_sha_password
 
     @classmethod
-    def validate_user(cls, username, sha_password):
+    def validate_user(cls, username: str, sha_password: str) -> bool:
         """
         Checking user password to co
         """
