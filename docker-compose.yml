@@ -1,0 +1,17 @@
+services:
+  mongo: 
+    image: mongo
+    restart: unless-stopped
+    stop_grace_period: 4s
+    environment: 
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: test
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+          memory: 1024m
+    volumes:
+      - ./database/mongo_db/:/data/db
+    ports:
+      - "27017:27017" 
