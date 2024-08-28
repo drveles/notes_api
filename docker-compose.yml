@@ -6,20 +6,28 @@ services:
     environment: 
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: test
+    volumes:
+      - ./database/mongo_db/:/data/db
+    ports:
+      - "27017:27017" 
+
     deploy:
       resources:
         limits:
           cpus: "1"
           memory: 1024m
-    volumes:
-      - ./database/mongo_db/:/data/db
-    ports:
-      - "27017:27017" 
+
   api:
     build: ./api/
     restart: unless-stopped
     stop_grace_period: 4s
-    ports:
-      - "8000:8000"
     volumes:
       - ./:/notes_api/
+    ports:
+      - "8000:8000"
+
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+          memory: 1024m
