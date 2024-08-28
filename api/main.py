@@ -30,3 +30,7 @@ async def show_notes():
     Showing all notes
     """
     return {"message": "showing notes"}
+
+
+
+
