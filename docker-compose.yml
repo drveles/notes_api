@@ -15,3 +15,11 @@ services:
       - ./database/mongo_db/:/data/db
     ports:
       - "27017:27017" 
+  api:
+    build: ./api/
+    restart: unless-stopped
+    stop_grace_period: 4s
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./:/notes_api/

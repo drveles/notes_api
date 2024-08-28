@@ -1,18 +1,20 @@
 """
 API implementation
 """
-
-from fastapi import FastAPI, status, HTTPException, Response, Request
-from pydantic import BaseModel
-from api.auth import Auth
-from api.models import NoteModel
-from api.speller import have_errors
-from database.engine import MongoDBEngine
-
+from fastapi import FastAPI, status, HTTPException
 from fastapi.responses import JSONResponse
+from pydantic import BaseModel
+from notes_api.database.engine import MongoDBEngine
+from .auth import Auth
+from .models import NoteModel
+from .speller import have_errors
 
 
 class RequestModel(BaseModel):
+    """
+    Model for HTTP request body
+    """
+
     note: str
     have_speller: bool = False
     usename: str
@@ -35,9 +37,7 @@ async def add_note(body: RequestModel):
             status_code=status.HTTP_403_FORBIDDEN, detail="Uncorrect user"
         )
 
-    # Await the coroutine to get the boolean result
     speller = await have_errors(body.note)
-
     note = NoteModel(username=body.usename, note_text=body.note, have_speller=speller)
 
     try:

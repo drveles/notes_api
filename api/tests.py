@@ -7,7 +7,6 @@ from unittest import IsolatedAsyncioTestCase
 from auth import Auth
 from speller import have_errors
 
-
 class TestAuthMethods(unittest.TestCase):
     """
     Testing Auth module

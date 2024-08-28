@@ -8,7 +8,6 @@ class NoteModel(BaseModel):
     """
     Note structure
     """
-
     _id: PositiveInt
     username: str
     note_text: str
