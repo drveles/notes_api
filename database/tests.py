@@ -3,7 +3,7 @@ Tests for database
 """
 
 import unittest
-from engine import MongoDBEngine
+from database.engine import MongoDBEngine
 
 
 class TestMongo(unittest.TestCase):
