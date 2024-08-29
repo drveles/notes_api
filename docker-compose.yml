@@ -1,0 +1,46 @@
+services:
+  api:
+    depends_on:
+      - mongo
+    build: ./api/
+    restart: unless-stopped
+    stop_grace_period: 4s
+    volumes:
+      - ./:/notes_api/
+    networks:
+      fbnet:
+        ipv4_address: 172.18.0.2
+    ports:
+      - "8000:8000"
+
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+          memory: 1024m
+
+  mongo: 
+    image: mongo
+    restart: unless-stopped
+    stop_grace_period: 4s
+    environment: 
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: test
+    volumes:
+      - ./database/mongo_db/:/data/db
+    networks:
+      fbnet:
+        ipv4_address: 172.18.0.3
+
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+          memory: 1024m
+
+networks:
+  fbnet:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.18.0.0/16
