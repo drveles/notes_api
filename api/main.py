@@ -1,6 +1,7 @@
 """
 API implementation
 """
+
 from fastapi import FastAPI, status, HTTPException
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel
@@ -16,8 +17,8 @@ class RequestModel(BaseModel):
     """
 
     note: str
-    have_speller: bool = False
-    usename: str
+    have_typo: bool = False
+    username: str
     sha_password: str
 
 
@@ -32,13 +33,15 @@ async def add_note(body: RequestModel):
     """
     Adding new note to DB
     """
-    if not Auth.validate_user(body.usename, body.sha_password):
+    if not Auth.validate_user(body.username, body.sha_password):
         raise HTTPException(
-            status_code=status.HTTP_403_FORBIDDEN, detail="Uncorrect user"
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Uncorrect user",
+            headers={"Content-Type": "application/json"},
         )
 
     speller = await have_errors(body.note)
-    note = NoteModel(username=body.usename, note_text=body.note, have_speller=speller)
+    note = NoteModel(username=body.username, note_text=body.note, have_typo=speller)
 
     try:
         mongo = MongoDBEngine()
@@ -50,11 +53,12 @@ async def add_note(body: RequestModel):
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail="Server error",
+            headers={"Content-Type": "application/json"},
         ) from exc
 
-    user = body.usename
+    user = body.username
 
-    return {"message": f"New note added for {user}"}
+    return {"detail": f"New note added for {user}"}
 
 
 @app.get("/notes/")
@@ -79,8 +83,9 @@ async def show_notes(username, sha_password):
         content[f"note_{idx}"] = document
 
     response = JSONResponse(
-        content={"message": "showing notes", "notes": content},
+        content={"detail": "showing notes", "notes": content},
         media_type="application/json",
+        headers={"Content-Type": "application/json"},
     )
 
     return response

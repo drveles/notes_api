@@ -11,4 +11,4 @@ class NoteModel(BaseModel):
     _id: PositiveInt
     username: str
     note_text: str
-    have_speller: bool
+    have_typo: bool
