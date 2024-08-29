@@ -19,11 +19,13 @@ Stack: `Python`, `MongoDB`, `Docker`, `FastAPI`, `aiohttp`, `asyncio`, `unittest
 ## DB - `MongoDB` <br>
 Считаю, что для текстовых заметок документоориентированная база данных подходходит идеально.<br>
 
-``` py
-_id: str # unique
-username: str
-note: str 
-have_typo: bool
+``` json 
+{
+    "_id": auto
+    "username": "str"
+    "note": "str" 
+    "have_typo": bool
+}
 ```
 
 ## Tests
@@ -37,7 +39,7 @@ have_typo: bool
     - [x] Просмотр списка заметок
     - [x] Добавление заметки
     - [ ] Тесты
-- [ ] Починить общение контейнеров
+- [x] Починить общение контейнеров
 - [ ] Терминальный интерфейс клиента и клиентские тесты.
 - [x] Докеризация
 - [x] База данных. Для MVP - просто json файлик, для релиза - MongoDB.

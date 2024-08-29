@@ -2,6 +2,10 @@
 Integration tests for API (clientside)
 """
 import unittest
+from api import tests
+from database import tests
+
+
 
 
 class TestAPI(unittest.TestCase):
@@ -12,4 +16,6 @@ class TestAPI(unittest.TestCase):
         pass
 
 if __name__ == "__main__":
-    unittest.main()
+    # unittest.main()
+    suite = unittest.TestLoader().loadTestsFromModule(tests)
+    unittest.TextTestRunner(verbosity=2).run(suite)

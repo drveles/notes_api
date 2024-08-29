@@ -1,5 +1,5 @@
 """
-Tests for database
+Tests for database only in open container. 
 """
 
 import unittest
