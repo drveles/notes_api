@@ -10,7 +10,7 @@ class MongoDBEngine:
     Class to connection to MongoDB
     """
 
-    __db_url = "mongodb://root:test@0.0.0.0/"
+    __db_url = "mongodb://root:test@mongo/"
     __db_name = "Notes"
     __collection_name = "notes"
 
