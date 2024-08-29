@@ -23,14 +23,14 @@ class TestIntegrationAPISync(unittest.TestCase):
         """
         Testing conn to route `/add_note/`
         """
-        response = requests.post("http://0.0.0.0:8000/add_note/")
+        response = requests.post("http://0.0.0.0:8000/add_note/", timeout=10)
         self.assertLess(response.status_code, 500)
 
     def test_available_route_notes(self):
         """
         Testing conn to route `/notes/`
         """
-        response = requests.get("http://0.0.0.0:8000/notes/")
+        response = requests.get("http://0.0.0.0:8000/notes/", timeout=10)
         self.assertLess(response.status_code, 500)
 
     def test_available_speller(self):
@@ -38,7 +38,7 @@ class TestIntegrationAPISync(unittest.TestCase):
         Testing conn to Yandex.Speller
         """
         response = requests.get(
-            "https://speller.yandex.net/services/spellservice.json/checkText"
+            "https://speller.yandex.net/services/spellservice.json/checkText", timeout=10
         )
         self.assertEqual(response.status_code, 200)
 
@@ -48,7 +48,7 @@ class TestIntegrationAPISync(unittest.TestCase):
         """
         response = requests.get(
             "http://0.0.0.0:8000/notes/",
-            params={"username": self.__username1, "sha_password": self.__sha_pass2},
+            params={"username": self.__username1, "sha_password": self.__sha_pass2}, timeout=10,
         )
         self.assertGreater(response.status_code, 400)
 
@@ -66,7 +66,7 @@ class TestIntegrationAPISync(unittest.TestCase):
         response = requests.post(
             "http://0.0.0.0:8000/add-note/",
             json=json_body,
-            headers=self.headers,
+            headers=self.headers, timeout=10,
         )
 
         self.assertLess(response.status_code, 300)
@@ -81,7 +81,7 @@ class TestIntegrationAPISync(unittest.TestCase):
         response = requests.post(
             "http://0.0.0.0:8000/add-note/",
             headers=self.headers,
-            json=json_body,
+            json=json_body, timeout=10,
         )
         self.assertLess(response.status_code, 300)
 
@@ -92,7 +92,7 @@ class TestIntegrationAPISync(unittest.TestCase):
         response = requests.get(
             "http://0.0.0.0:8000/notes/",
             headers=self.headers,
-            params={"username": self.__username1, "sha_password": self.__sha_pass1},
+            params={"username": self.__username1, "sha_password": self.__sha_pass1}, timeout=10,
         )
         json = response.json()
         self.assertIsNotNone(json["notes"])
@@ -101,7 +101,7 @@ class TestIntegrationAPISync(unittest.TestCase):
         response = requests.get(
             "http://0.0.0.0:8000/notes/",
             headers=self.headers,
-            params={"username": self.__username2, "sha_password": self.__sha_pass2},
+            params={"username": self.__username2, "sha_password": self.__sha_pass2}, timeout=10,
         )
         json = response.json()
         self.assertIsNotNone(json["notes"])
