@@ -21,7 +21,7 @@ class Auth:
     @classmethod
     def authentication_user(cls, username: str, password: str) -> bool:
         """
-        Checking user password to co
+        Checking is user password correct
         """
         curr_sha_password = hashlib.sha256(password.encode("ascii")).hexdigest()
         stock_sha_password = cls.__users_sha_passwords.get(username, "")
@@ -31,7 +31,7 @@ class Auth:
     @classmethod
     def validate_user(cls, username: str, sha_password: str) -> bool:
         """
-        Checking user password to co
+        Checking is sha password is correct
         """
         stock_sha_password = cls.__users_sha_passwords.get(username, "")
 

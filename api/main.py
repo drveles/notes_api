@@ -29,7 +29,7 @@ app = FastAPI()
     "/add-note/",
     status_code=status.HTTP_201_CREATED,
 )
-async def add_note(body: RequestModel):
+async def add_note(body: RequestModel) -> JSONResponse:
     """
     Adding new note to DB
     """
@@ -58,11 +58,17 @@ async def add_note(body: RequestModel):
 
     user = body.username
 
-    return {"detail": f"New note added for {user}"}
+    response = JSONResponse(
+        content={"detail": f"New note added for {user}"},
+        media_type="application/json",
+        headers={"Content-Type": "application/json"},
+    )
+
+    return response
 
 
 @app.get("/notes/")
-async def show_notes(username, sha_password):
+async def show_notes(username: str, sha_password: str) -> JSONResponse:
     """
     Showing all notes
     """

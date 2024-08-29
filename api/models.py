@@ -6,7 +6,7 @@ from pydantic import BaseModel, PositiveInt
 
 class NoteModel(BaseModel):
     """
-    Note structure
+    Note structure in MongoDB
     """
     _id: PositiveInt
     username: str
