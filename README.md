@@ -17,7 +17,7 @@ Stack: `Python`, `MongoDB`, `Docker`, `FastAPI`, `aiohttp`, `asyncio`, `unittest
 ```json
 {
     "note": "Note text",
-    "have_typo": False,
+    "have_typo": "False",
     "username": "user1",
     "sha_password": "user1_sha_password",
 }
@@ -42,10 +42,10 @@ Stack: `Python`, `MongoDB`, `Docker`, `FastAPI`, `aiohttp`, `asyncio`, `unittest
 Заметки хранятся в JSON формате, со следующими полями:
 ``` json 
 {
-    "_id": auto
-    "username": "str"
-    "note": "str" 
-    "have_typo": bool
+    "_id": "auto_generated",
+    "username": "str",
+    "note": "str",
+    "have_typo": "bool"
 }
 ```
 
